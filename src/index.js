@@ -1,11 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const router = express.Router();
 const cors = require('cors');
 const { mongoose } = require('./database/index');
 
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false}));
 
 app.use(cors());
 
@@ -38,7 +39,7 @@ app.post('/register', (req,res) => {
 })
 
 app.patch('/register/:id',(req,res) => {
-    User.findOneAndReplace({_id: req.params.id}, {
+    User.findByIdAndUpdate({_id: req.params.id}, {
         $set:req.body
     }).then(() => {
         res.sendStatus(200);
@@ -94,10 +95,25 @@ app.post('/musics', (req,res) => {
         res.send(musicDoc)
     })
 })
+
+app.delete('/musics/:id', (req,res) => {
+    Music.findOneAndDelete({_id: req.params.id},{
+        $set:req.body
+    }).then(() => {
+        res.sendStatus(200)
+    })
+})
+//get all songs
 app.get('/musics', (req,res) => {
     Music.find().then((musics) => {
         res.send(musics)
     })
+})
+
+//get all song from an playlist
+router.get('/musics/:id', (req,res) => {
+    
+    
 })
 
 

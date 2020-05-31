@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../database/index');
 
 const MusicSchema = new mongoose.Schema({
     name:{
