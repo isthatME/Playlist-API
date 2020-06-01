@@ -43,7 +43,7 @@ app.patch('/register/:id',(req,res) => {
         $set:req.body
     }).then(() => {
         res.sendStatus(200);
-    })
+    }).catch(err = res.sendStatus(400))
 })
 
 
