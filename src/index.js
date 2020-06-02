@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const router = express.Router();
 const cors = require('cors');
 const { mongoose } = require('./database/index');
 
@@ -26,7 +25,7 @@ app.get('/register', (req,res) => {
 })
 
 app.post('/register', (req,res) => {
-    let {name, email, password} = req.body
+    let { name, email, password } = req.body
 
     let newUser = new User({
         name,
@@ -111,9 +110,11 @@ app.get('/musics', (req,res) => {
 })
 
 //get all song from an playlist
-router.get('/musics/:id', (req,res) => {
-    
-    
+app.get('/musicss', (req,res) => {
+    const {playlistName} = req.query
+    Music.find({playlistName}).then((data) => {
+        res.send(data)
+    })
 })
 
 
